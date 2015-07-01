@@ -1,0 +1,180 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> obj
+Rule 1     obj -> OTAG > CTAG
+Rule 2     obj -> OTAG > CONTENT CTAG
+Rule 3     obj -> OTAG > obj CTAG
+Rule 4     obj -> OTAG CLASS > CTAG
+Rule 5     obj -> OTAG CLASS > CONTENT CTAG
+Rule 6     obj -> OTAG CLASS > obj CTAG
+
+Terminals, with rules where they appear
+
+>                    : 1 2 3 4 5 6
+CLASS                : 4 5 6
+CONTENT              : 2 5
+CTAG                 : 1 2 3 4 5 6
+OTAG                 : 1 2 3 4 5 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+obj                  : 3 6 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . obj
+    (1) obj -> . OTAG > CTAG
+    (2) obj -> . OTAG > CONTENT CTAG
+    (3) obj -> . OTAG > obj CTAG
+    (4) obj -> . OTAG CLASS > CTAG
+    (5) obj -> . OTAG CLASS > CONTENT CTAG
+    (6) obj -> . OTAG CLASS > obj CTAG
+
+    OTAG            shift and go to state 2
+
+    obj                            shift and go to state 1
+
+state 1
+
+    (0) S' -> obj .
+
+
+
+state 2
+
+    (1) obj -> OTAG . > CTAG
+    (2) obj -> OTAG . > CONTENT CTAG
+    (3) obj -> OTAG . > obj CTAG
+    (4) obj -> OTAG . CLASS > CTAG
+    (5) obj -> OTAG . CLASS > CONTENT CTAG
+    (6) obj -> OTAG . CLASS > obj CTAG
+
+    >               shift and go to state 4
+    CLASS           shift and go to state 3
+
+
+state 3
+
+    (4) obj -> OTAG CLASS . > CTAG
+    (5) obj -> OTAG CLASS . > CONTENT CTAG
+    (6) obj -> OTAG CLASS . > obj CTAG
+
+    >               shift and go to state 5
+
+
+state 4
+
+    (1) obj -> OTAG > . CTAG
+    (2) obj -> OTAG > . CONTENT CTAG
+    (3) obj -> OTAG > . obj CTAG
+    (1) obj -> . OTAG > CTAG
+    (2) obj -> . OTAG > CONTENT CTAG
+    (3) obj -> . OTAG > obj CTAG
+    (4) obj -> . OTAG CLASS > CTAG
+    (5) obj -> . OTAG CLASS > CONTENT CTAG
+    (6) obj -> . OTAG CLASS > obj CTAG
+
+    CTAG            shift and go to state 6
+    CONTENT         shift and go to state 8
+    OTAG            shift and go to state 2
+
+    obj                            shift and go to state 7
+
+state 5
+
+    (4) obj -> OTAG CLASS > . CTAG
+    (5) obj -> OTAG CLASS > . CONTENT CTAG
+    (6) obj -> OTAG CLASS > . obj CTAG
+    (1) obj -> . OTAG > CTAG
+    (2) obj -> . OTAG > CONTENT CTAG
+    (3) obj -> . OTAG > obj CTAG
+    (4) obj -> . OTAG CLASS > CTAG
+    (5) obj -> . OTAG CLASS > CONTENT CTAG
+    (6) obj -> . OTAG CLASS > obj CTAG
+
+    CTAG            shift and go to state 9
+    CONTENT         shift and go to state 11
+    OTAG            shift and go to state 2
+
+    obj                            shift and go to state 10
+
+state 6
+
+    (1) obj -> OTAG > CTAG .
+
+    CTAG            reduce using rule 1 (obj -> OTAG > CTAG .)
+    $end            reduce using rule 1 (obj -> OTAG > CTAG .)
+
+
+state 7
+
+    (3) obj -> OTAG > obj . CTAG
+
+    CTAG            shift and go to state 12
+
+
+state 8
+
+    (2) obj -> OTAG > CONTENT . CTAG
+
+    CTAG            shift and go to state 13
+
+
+state 9
+
+    (4) obj -> OTAG CLASS > CTAG .
+
+    CTAG            reduce using rule 4 (obj -> OTAG CLASS > CTAG .)
+    $end            reduce using rule 4 (obj -> OTAG CLASS > CTAG .)
+
+
+state 10
+
+    (6) obj -> OTAG CLASS > obj . CTAG
+
+    CTAG            shift and go to state 14
+
+
+state 11
+
+    (5) obj -> OTAG CLASS > CONTENT . CTAG
+
+    CTAG            shift and go to state 15
+
+
+state 12
+
+    (3) obj -> OTAG > obj CTAG .
+
+    CTAG            reduce using rule 3 (obj -> OTAG > obj CTAG .)
+    $end            reduce using rule 3 (obj -> OTAG > obj CTAG .)
+
+
+state 13
+
+    (2) obj -> OTAG > CONTENT CTAG .
+
+    CTAG            reduce using rule 2 (obj -> OTAG > CONTENT CTAG .)
+    $end            reduce using rule 2 (obj -> OTAG > CONTENT CTAG .)
+
+
+state 14
+
+    (6) obj -> OTAG CLASS > obj CTAG .
+
+    CTAG            reduce using rule 6 (obj -> OTAG CLASS > obj CTAG .)
+    $end            reduce using rule 6 (obj -> OTAG CLASS > obj CTAG .)
+
+
+state 15
+
+    (5) obj -> OTAG CLASS > CONTENT CTAG .
+
+    CTAG            reduce using rule 5 (obj -> OTAG CLASS > CONTENT CTAG .)
+    $end            reduce using rule 5 (obj -> OTAG CLASS > CONTENT CTAG .)
+

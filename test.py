@@ -17,8 +17,8 @@ tokens = [ 'OTAG', 'CTAG' , 'CLASS', 'CONTENT']
 t_ignore = "\t"
 t_OTAG = r'<([a-z]+(\s?))'
 t_CTAG = r'<\/([a-z]+)>'
-t_CLASS = r'class="([a-z]+)"'
-t_CONTENT = r'[a-zA-Z0-9-\d]+'
+t_CLASS = r'class\=\"([a-z]+)\"'
+t_CONTENT = r'(\s?[a-zA-Z0-9])+'
 
 
 
@@ -47,13 +47,30 @@ def p_obj(p):
     '''
     obj : OTAG ">" CTAG
         | OTAG ">" CONTENT CTAG
+        | OTAG ">" obj CTAG
+        | OTAG CLASS ">" CTAG
         | OTAG CLASS ">" CONTENT CTAG
         | OTAG CLASS ">" obj CTAG
-        | OTAG CLASS ">" CONTENT obj CTAG
     '''
-    if len(p) == 4 : print  'otag',p[1],'ctag',p[3]
-    elif len(p) == 5 : print  'otag',p[1],'content',p[3],'ctag',p[4]
-    elif len(p) > 5 : print  'otag',p[1]+">",'class', p[2],'content',p[4],'ctag',p[5]
+    objects.append(p)
+    if len(p) == 4 and p[1].split("<")[1].replace(" ","") == p[3].split("/")[1].split(">")[0]: 
+
+        print  'otag',p[1]+">",'ctag',p[3]
+
+    elif len(p) == 5 and p[1].split("<")[1].replace(" ","") == p[4].split("/")[1].split(">")[0]: 
+
+        if p[2] == ">":
+
+            print  'otag',p[1].replace(" ","")+">",'class',None,'content',p[3],'ctag',p[4]
+
+        else:
+
+            print  'otag',p[1].replace(" ","")+">",'class',p[2],'content',None,'ctag',p[4]
+
+    elif len(p) > 5 and p[1].split("<")[1] == p[5].split("/")[1].split(">")[0]: 
+
+        print  'otag',p[1].replace(" ","")+">",'class', p[2],'content',p[4],'ctag',p[5]
+
 
 # def p_object(p):
 #     'object : OTAG CONTENT CTAG'
